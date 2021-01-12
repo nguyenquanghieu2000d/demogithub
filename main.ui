@@ -62,9 +62,19 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>50</y>
+      <y>110</y>
       <width>481</width>
-      <height>481</height>
+      <height>421</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="token">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>47</y>
+      <width>481</width>
+      <height>61</height>
      </rect>
     </property>
    </widget>

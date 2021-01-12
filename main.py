@@ -12,6 +12,8 @@ import json
 from PyQt5 import QtCore, QtGui, QtWidgets
 import requests
 import threading
+from device_bitable import DeviceBitable
+import time
 
 class TableModel(QtCore.QAbstractTableModel):
     def __init__(self, data):
@@ -20,18 +22,12 @@ class TableModel(QtCore.QAbstractTableModel):
 
     def data(self, index, role):
         if role == Qt.DisplayRole:
-            # See below for the nested-list data structure.
-            # .row() indexes into the outer list,
-            # .column() indexes into the sub-list
             return self._data[index.row()][index.column()]
 
     def rowCount(self, index):
-        # The length of the outer list.
         return len(self._data)
 
     def columnCount(self, index):
-        # The following takes the first sub-list, and returns
-        # the length (only works if all rows are an equal length)
         return len(self._data[0])
 
 class Ui_MainWindow(object):
@@ -53,23 +49,36 @@ class Ui_MainWindow(object):
         self.start_test.setGeometry(QtCore.QRect(340, 540, 131, 31))
         self.start_test.setObjectName("start_test")
         self.list_device = QtWidgets.QTableView(self.centralwidget)
-        self.list_device.setGeometry(QtCore.QRect(20, 50, 743, 481))
+        self.list_device.setGeometry(QtCore.QRect(20, 110, 743, 421))
         self.list_device.setObjectName("list_device")
+        self.token = QtWidgets.QTextEdit(self.centralwidget)
+        self.token.setGeometry(QtCore.QRect(20, 47, 743, 61))
+        self.token.setObjectName("token")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.data = [
           ["Name", "Name bluetooth", "Ip lan", "Ip wifi", "Success", "Fail", "Log"]
         ]
+
         self.threads = []
         self.model = TableModel(self.data)
         self.list_device.setModel(self.model)
         self.name.setText("BITABLE_")
         self.event()
+        self.login()
+
+    def login(self):
+        response = requests.post('http://api.cms.beetai.com/api/user/login', json = {'email':'admin@beetsoft.com.vn', "password" : "beetai@2019"})
+        res = json.loads(response.text)
+        self.token.setText(res['access_token'])
+        self.token.setEnabled(False)
+        # print(res)
 
     def in_array(self, name_device):
         for item in self.data:
@@ -89,6 +98,7 @@ class Ui_MainWindow(object):
         device = device.upper()
         lan, wifi = self.call_api(device)
         if lan != None:
+            # self.devices.append(device)
             self.data.append([device, device, lan, wifi, "0/0", "0/0", "LOG"])
             self.model = TableModel(self.data)
             self.list_device.setModel(self.model)
@@ -97,7 +107,20 @@ class Ui_MainWindow(object):
     def event(self):
         self.list_device.clicked.connect(self.func_test)
         self.add_device.clicked.connect(self.add_new)
+        self.start_test.clicked.connect(self.handle_start)
     
+    def handle_start(self):
+        token = self.token.toPlainText()
+        if len(token) == 0:
+            print("missing token !!!")
+            return
+        if len(self.data) <= 1:
+            return
+        print(self.data[1: len(self.data)])
+        d = DeviceBitable(self.data[1: len(self.data)], self.token.toPlainText())
+        thr = threading.Thread(target=d.run, args=())
+        thr.start()
+
     def add_new(self):
         name_device = self.name.text()
         self.add_device_to_list(name_device)

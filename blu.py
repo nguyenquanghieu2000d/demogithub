@@ -1,34 +1,12 @@
-#!/usr/bin/env python3
-"""PyBluez simple example l2capclient.py
-Demo L2CAP client for bluetooth module.
-$Id: l2capclient.py 524 2007-08-15 04:04:52Z albert $
-"""
+import requests
+import json
 
-import sys
+url = "http://api.cms.beetai.com/api/boxEngine/getById/5928"
 
-import bluetooth
+headers = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDk4MTM3OTMsIm5iZiI6MTYwOTgxMzc5MywianRpIjp7ImVtYWlsIjoiYWRtaW5AYmVldHNvZnQuY29tLnZuIiwicnVsZSI6IjEiLCJ1c2VyX2lkIjoxfSwiZXhwIjoxNjEwNDE4NTkzLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.vmMRmJEjjj7HBlIjCtMnbmOxsFHfPtICvEBBGjp77eQ'}
 
+res = requests.get(url, headers=headers)
 
-sock = bluetooth.BluetoothSocket(bluetooth.L2CAP)
+res = json.loads(res.text)
 
-# if len(sys.argv) < 2:
-#     print("Usage: l2capclient.py <addr>")
-#     sys.exit(2)
-
-bt_addr = "01:19:86:00:09:A6"
-port = 1
-
-print("Trying to connect to {} on PSM 0x{}...".format(bt_addr, port))
-
-sock.connect((bt_addr, port))
-
-print("Connected. Type something...")
-while True:
-    data = input()
-    if not data:
-        break
-    sock.send(data)
-    data = sock.recv(1024)
-    print("Data received:", str(data))
-
-sock.close()
+print(res)
