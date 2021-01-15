@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
+    <width>1167</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,10 +17,10 @@
    <widget class="QLineEdit" name="name">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>10</y>
-      <width>141</width>
-      <height>31</height>
+      <x>20</x>
+      <y>20</y>
+      <width>171</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -35,11 +35,16 @@
    <widget class="QPushButton" name="add_device">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>10</y>
-      <width>75</width>
-      <height>31</height>
+      <x>200</x>
+      <y>20</y>
+      <width>161</width>
+      <height>51</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Add</string>
@@ -48,11 +53,18 @@
    <widget class="QPushButton" name="start_test">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>540</y>
-      <width>131</width>
-      <height>31</height>
+      <x>280</x>
+      <y>510</y>
+      <width>261</width>
+      <height>61</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Start</string>
@@ -62,9 +74,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>110</y>
-      <width>481</width>
-      <height>421</height>
+      <y>150</y>
+      <width>1131</width>
+      <height>351</height>
      </rect>
     </property>
    </widget>
@@ -72,10 +84,70 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>47</y>
-      <width>481</width>
+      <y>80</y>
+      <width>1131</width>
       <height>61</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="start_test_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>510</y>
+      <width>251</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Start ALL</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="start_test_3">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>510</y>
+      <width>291</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Stop</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="start_test_4">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>510</y>
+      <width>301</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Stop All</string>
     </property>
    </widget>
   </widget>
